@@ -11,7 +11,7 @@ export default defineConfig({
   
   resolve: {
     alias: {
-      '@/': path.resolve(__dirname, 'leadmanager/frontend/src') + '/',
+      '@': path.resolve(__dirname, 'leadmanager/frontend/src')// + '/',
     },
   },
   
