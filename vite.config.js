@@ -1,39 +1,32 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { fileURLToPath } from 'url'
-import path from 'path'
-// import { dirname, resolve } from 'path'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
 
-const root = './leadmanager/frontend/', // root project folder
-  base = '/static/frontend/' // output folder
+const root = path.resolve(__dirname, 'leadmanager/frontend');
+const base = '/static/frontend/';
 
-// const __filename = fileURLToPath(import.meta.url)
-// const __dirname = dirname(__filename)
-console.log(fileURLToPath(new URL(root+'src', import.meta.url)))
-console.log(path.resolve(__dirname, root+'src'))
-// https://vitejs.dev/config/
 export default defineConfig({
   root,
   base,
-  // other configuration options...
+  
+  resolve: {
+    alias: {
+      '@/': path.resolve(__dirname, 'leadmanager/frontend/src') + '/',
+    },
+  },
+  
   plugins: [react()],
-
+  
   build: {
-    outDir: base,
+    outDir: path.resolve(__dirname, 'leadmanager/frontend', base),
     assetsDir: '.',
     emptyOutDir: true,
-    // manifest: true,
     rollupOptions: {
-      input: root + 'src/main.jsx',
+      input: root + '/src/main.jsx',
       output: {
         entryFileNames: '[name].js',
         assetFileNames: '[name].[ext]',
       },
     },
-    resolve: {
-      alias: {
-        '@': path.resolve(__dirname, 'leadmanager/frontend/src'),
-      },
-    },
   },
-})
+});
